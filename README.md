@@ -1,1 +1,1 @@
-# Rice_dataset
+# cat_dog_dataset
