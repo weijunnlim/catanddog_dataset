@@ -15,11 +15,11 @@ class CustomImageDataset(Dataset):
         return len(self.data)
 
     def __getitem__(self,index):
-        img_path=os.path.join(self.root_dir,self.annotation.iloc[index,0])
+        img_path=os.path.join(self.root_dir,self.data.iloc[index,0])
         image=io.imread(img_path)
         image=resize(image,(250,250),anti_aliasing=True)
-        y_label=torch.tensor(int(self.annotation.iloc[index,1]))
+        y_label=torch.tensor(int(self.data.iloc[index,1]))
         
-        if self.tranform:
-            image=self.tranform(image)
+        if self.transform:
+            image=self.transform(image)
         return (image,y_label)
