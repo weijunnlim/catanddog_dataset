@@ -42,15 +42,15 @@ def main():
     # small_test_dataset = torch.utils.data.Subset(test_dataset, range(200))
     # small_test_loader = DataLoader(small_test_dataset, batch_size=8, shuffle=True)
 
-    train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=8, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
     # load pre trained model    
     model = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.DEFAULT)
     #print(model)
     num_features = model.classifier[1].in_features
-    model.classifier[1] = nn.Linear(num_features, 3)  # last layer depends on how many classes
+    model.classifier[1] = nn.Linear(num_features, 2)  # last layer depends on how many classes
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
@@ -60,7 +60,7 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=0.001) #using Adam optimizer
 
     # Training loop
-    num_epochs = 10
+    num_epochs = 100
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
