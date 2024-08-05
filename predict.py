@@ -118,23 +118,5 @@ def main():
     torch.save(model, 'model.pth')
     print("Entire model saved to 'model.pth'")
 
-    #its time to test
-#     image_path = '/Users/limweijun/Downloads/image_1.jpeg'
-#     image = Image.open(image_path).convert("RGB")
-#     image = transform(image)
-#     image = image.unsqueeze(0)
-#     prediction = predict_image(model, image)
-#     print(f'The image is predicted as: {prediction}')
-
-# def predict_image(model, image):
-#     model.eval() 
-#     with torch.no_grad(): 
-#         output = model(image)
-#         _, predicted = torch.max(output, 1)
-#         prediction = predicted.item()
-    
-#     class_labels = ['Cat', 'Dog', 'None of the Above']
-#     return class_labels[prediction]
-
 if __name__ == '__main__':
     main()
