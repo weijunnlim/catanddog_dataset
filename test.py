@@ -10,8 +10,8 @@ def predict_image(model, image):
     model.eval() 
     with torch.no_grad():  # no grad to save computation
         output = model(image)
-        _, predicted = torch.max(output, 1)
-        prediction = predicted.item()
+        _, predicted = torch.max(output, 1) #to determine which class has higher score
+        prediction = predicted.item() # 0 or 1
     
     class_labels = ['Cat', 'Dog']
     return class_labels[prediction]
@@ -25,11 +25,12 @@ transform = transforms.Compose([
 # Load the model
 model_path = '/home/dxd_wj/catanddog_dataset/model.pth'
 #model = mobilenet_v2()  # Initialize the model architecture
-model = torch.load(model_path)  # Load state dict
-model.to(device)  # Move the model to the GPU or CPU
+model = torch.load(model_path)  
+#model.load_state_dict(input_params)
+model.to(device)  
 
  #its time to test
-image_path = '/home/dxd_wj/catanddog_dataset/images/image1.jfif'
+image_path = '/home/dxd_wj/catanddog_dataset/images/image6.jpg'
 image = Image.open(image_path).convert("RGB")
 image = transform(image)
 image = image.unsqueeze(0)

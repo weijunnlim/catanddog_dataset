@@ -9,7 +9,7 @@ import numpy as np
 image_processor = AutoImageProcessor.from_pretrained("nvidia/segformer-b0-finetuned-ade-512-512")
 model = SegformerForSemanticSegmentation.from_pretrained("nvidia/segformer-b0-finetuned-ade-512-512")
 
-image_path = "/home/dxd_wj/catanddog_dataset/images/image3.jfif"
+image_path = "/home/dxd_wj/catanddog_dataset/images/image2.jfif"
 image = Image.open(image_path).convert("RGB")
 inputs = image_processor(images=image, return_tensors="pt")
 outputs = model(**inputs)

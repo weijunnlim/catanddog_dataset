@@ -14,9 +14,9 @@ from PIL import Image
 
 def main():
     transform = transforms.Compose([
-        transforms.ToPILImage(),
+        transforms.ToPILImage(), #python imaging library
         transforms.Resize((224, 224)),
-        transforms.ToTensor()
+        transforms.ToTensor() #transform back to tensor
     ])
 
     csv_dataset = pd.read_csv('/home/dxd_wj/catanddog_dataset/cat_dog.csv') #to change
@@ -50,7 +50,8 @@ def main():
     model = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.DEFAULT)
     #print(model)
     num_features = model.classifier[1].in_features
-    model.classifier[1] = nn.Linear(num_features, 2)  # last layer depends on how many classes
+    #replace last layer
+    model.classifier[1] = nn.Linear(num_features, 2)  # binary classification so use linear?
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
@@ -60,7 +61,7 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=0.001) #using Adam optimizer
 
     # Training loop
-    num_epochs = 100
+    num_epochs = 40
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
@@ -116,7 +117,7 @@ def main():
     test_accuracy = 100 * correct / total
     print(f'Test Loss: {test_loss:.4f}, Accuracy: {test_accuracy:.2f}%')
     torch.save(model, 'model.pth')
-    print("Entire model saved to 'model.pth'")
+    print("Entire model saved as 'model.pth'")
 
 if __name__ == '__main__':
     main()
