@@ -29,7 +29,7 @@ model = torch.load(model_path)  # Load state dict
 model.to(device)  # Move the model to the GPU or CPU
 
  #its time to test
-image_path = '/home/dxd_wj/catanddog_dataset/images/image9.jfif'
+image_path = '/home/dxd_wj/catanddog_dataset/images/image1.jfif'
 image = Image.open(image_path).convert("RGB")
 image = transform(image)
 image = image.unsqueeze(0)
